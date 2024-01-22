@@ -9,7 +9,7 @@ const navigation = () => {
       path: '/panel/home'
     },
     {
-      sectionTitle: 'Gönderi'
+      sectionTitle: 'Teklif'
     },
     {
       title: 'Teklif Al',
