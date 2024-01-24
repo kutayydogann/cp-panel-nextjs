@@ -42,7 +42,7 @@ import themeConfig from 'src/configs/themeConfig'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
-import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2' 
 
 // ** Styled Components
 const LoginIllustration = styled('img')(({ theme }) => ({
@@ -145,7 +145,7 @@ const LoginPage = () => {
             margin: theme => theme.spacing(8, 0, 8, 8)
           }}
         >
-          <LoginIllustration alt='login-illustration' src={`/images/pages/${imageSource}-${theme.palette.mode}.png`} />
+          <LoginIllustration alt='login-illustration' src={`/images/login.webp`} />
           <FooterIllustrationsV2 />
         </Box>
       ) : null}

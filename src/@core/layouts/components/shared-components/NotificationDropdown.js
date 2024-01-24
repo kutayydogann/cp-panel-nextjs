@@ -162,12 +162,12 @@ const NotificationDropdown = props => {
           sx={{ cursor: 'default', userSelect: 'auto', backgroundColor: 'transparent !important' }}
         >
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-            <Typography sx={{ cursor: 'text', fontWeight: 600 }}>Notifications</Typography>
+            <Typography sx={{ cursor: 'text', fontWeight: 600 }}>Bildirimler</Typography>
             <CustomChip
               skin='light'
               size='small'
               color='primary'
-              label={`${notifications.length} New`}
+              label={`${notifications.length} Yeni`}
               sx={{ height: 20, fontSize: '0.75rem', fontWeight: 500, borderRadius: '10px' }}
             />
           </Box>
@@ -199,9 +199,6 @@ const NotificationDropdown = props => {
             borderTop: theme => `1px solid ${theme.palette.divider}`
           }}
         >
-          <Button fullWidth variant='contained' onClick={handleDropdownClose}>
-            Read All Notifications
-          </Button>
         </MenuItem>
       </Menu>
     </Fragment>

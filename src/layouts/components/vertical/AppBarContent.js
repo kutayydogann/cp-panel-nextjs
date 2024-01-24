@@ -15,8 +15,8 @@ import ShortcutsDropdown from 'src/@core/layouts/components/shared-components/Sh
 const notifications = [
   {
     meta: 'Bugün',
-    title: 'Hoşgeldin Kutay! 🎉',
-    avatarImg: '/images/avatars/1.png',
+    title: 'Hoşgeldin Kutay!',
+    avatarImg: '/images/favicon.png',
     subtitle: 'Yurt dışına kargo göndermek CargoPanel ile çok kolay!'
   },
 ]

@@ -5,7 +5,7 @@ const navigation = () => {
     },
     {
       title: 'Ana Sayfa',
-      icon: 'tabler:home',
+      icon: 'tabler:smart-home',
       path: '/panel/home'
     },
     {
@@ -18,7 +18,7 @@ const navigation = () => {
     },
     {
       title: 'Tekliflerim',
-      icon: 'tabler:clipboard',
+      icon: 'tabler:clipboard-text',
       path: '/panel/myOffers'
     },
     {
@@ -27,7 +27,7 @@ const navigation = () => {
       path: '/panel/'
     },
     {
-      title: 'Sevkiyatlarım',
+      title: 'Gönderilerim',
       icon: 'tabler:package',
       path: '/panel/myShipments'
     },
@@ -41,11 +41,11 @@ const navigation = () => {
       icon: 'tabler:file-invoice',
       children: [
         {
-          title: "Sevkiyat Belgeleri",
+          title: "Gönderi Belgeleri",
           path: '/panel/s'
         },
         {
-          title: "Faturalar",
+          title: "Faturalarım",
           path: '/panel/f'
         },
       ]
@@ -58,44 +58,21 @@ const navigation = () => {
       icon: 'tabler:settings',
       children: [
         {
-          title: "Hesap Bilgileri",
+          title: "Hesap Bilgilerim",
           path: '/panel/AccountSettings'
         },
         {
-          title: "Güvenlik",
+          title: "Şifre Değiştirme",
           path: '/panel/AccountSecurity'
         },
         {
-          title: "Adresler",
+          title: "Adreslerim",
           path: '/panel/AccountAdress'
         },
       ]
     },
     {
-      sectionTitle: 'TEMA'
-    },
-    {
-      title: 'Dashboards',
-      icon: 'tabler:smart-home',
-      badgeContent: 'new',
-      badgeColor: 'error',
-      children: [
-        {
-          title: 'Analytics',
-          path: '/dashboards/analytics'
-        },
-        {
-          title: 'CRM',
-          path: '/dashboards/crm'
-        },
-        {
-          title: 'eCommerce',
-          path: '/dashboards/ecommerce'
-        }
-      ]
-    },
-    {
-      sectionTitle: 'Apps & Pages'
+      sectionTitle: 'TEMA SAYFALARI'
     },
     {
       title: 'Email',
