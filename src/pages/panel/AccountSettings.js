@@ -25,14 +25,18 @@ const AccountSettings = () => {
 
   return (
     <Grid container spacing={6}>
-      {/* Account Details Card */}
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='Hesap Bilgileri' />
+          <CardHeader title='Hesap Bilgilerim' />
           <form>
             <Divider />
             <CardContent>
               <Grid container spacing={5}>
+                <Grid item xs={12}>
+                  <Typography variant='body2' sx={{ fontWeight: 600 }}>
+                    1. Profil Bilgilerim
+                  </Typography>
+                </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
@@ -51,14 +55,24 @@ const AccountSettings = () => {
                     onChange={(e) => handleFormChange('email', e.target.value)}
                   />
                 </Grid>
+
+                <Grid item xs={12}>
+                  <Divider sx={{ mb: '0 !important' }} />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant='body2' sx={{ fontWeight: 600 }}>
+                    2. Kişisel Bilgilerim
+                  </Typography>
+                </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField fullWidth label='Kimlik Numarası' inputProps={{ maxLength: 11 }} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
-                    type='number'
+                    type='tel'
                     label='Telefon Numarası'
+                    options={{ phone: true, phoneRegionCode: 'US' }}
                     value={formData.number}
                     placeholder='850 309 15 91'
                     onChange={(e) => handleFormChange('number', e.target.value)}
@@ -70,7 +84,7 @@ const AccountSettings = () => {
 
                 <Grid item xs={12} sx={{ pt: (theme) => `${theme.spacing(6.5)} !important` }}>
                   <Button variant='contained' sx={{ mr: 4 }} onClick={handleSave}>
-                    Kaydet
+                    Güncelle
                   </Button>
                 </Grid>
               </Grid>

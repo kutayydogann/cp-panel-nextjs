@@ -28,6 +28,12 @@ const shortcuts = [
     icon: 'tabler:calculator',
     subtitle: 'Hemen Teklif Al'
   },
+  {
+    title: 'Bize Ulaşın',
+    url: '/apps/contact',
+    icon: 'tabler:phone-call',
+    subtitle: 'İletişime Geç'
+  },
 ]
 
 const AppBarContent = props => {

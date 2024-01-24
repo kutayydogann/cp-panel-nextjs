@@ -9,14 +9,44 @@ const columns = [
   {
     flex: 0.25,
     minWidth: 200,
-    field: 'username',
-    headerName: 'Ad Soyad'
+    field: 'shipmentid',
+    headerName: 'Sevkiyat No'
   },
   {
     flex: 0.25,
-    minWidth: 230,
-    field: 'email',
-    headerName: 'E-Posta'
+    minWidth: 200,
+    field: '1',
+    headerName: 'Talep Tarihi'
+  },
+  {
+    flex: 0.25,
+    minWidth: 200,
+    field: '2',
+    headerName: 'Gönderici Ülke'
+  },
+  {
+    flex: 0.25,
+    minWidth: 200,
+    field: '3',
+    headerName: 'Varış Ülkesi'
+  },
+  {
+    flex: 0.25,
+    minWidth: 200,
+    field: '4',
+    headerName: 'Fiyat'
+  },
+  {
+    flex: 0.25,
+    minWidth: 200,
+    field: '6',
+    headerName: 'Durum'
+  },
+  {
+    flex: 0.25,
+    minWidth: 50,
+    field: '7',
+    headerName: 'İşlemler'
   },
 ];
 
@@ -47,7 +77,7 @@ const TableBasic = () => {
 
   return (
     <Card>
-      <CardHeader title='Sevkiyatlarım' />
+      <CardHeader title='Gönderilerim' />
       <Box sx={{ height: 500 }}>
         <DataGrid columns={columns} rows={users} />
       </Box>
