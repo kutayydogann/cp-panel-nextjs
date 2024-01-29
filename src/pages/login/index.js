@@ -7,7 +7,6 @@ import Link from 'next/link'
 // ** MUI Components
 import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
 import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
@@ -34,9 +33,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useAuth } from 'src/hooks/useAuth'
 import useBgColor from 'src/@core/hooks/useBgColor'
 import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
 
 // ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
@@ -160,20 +156,12 @@ const LoginPage = () => {
           }}
         >
           <Box sx={{ width: '100%', maxWidth: 400, alignItems: 'center', justifyContent: 'left' }}>
-            <img src='/images/logo-main-black.png' alt='Logo' width={180}/>
+            <img src='/images/logo-main-black.png' alt='Logo' width={200}/>
             <Box sx={{ mb: 6 }}>
-              <Typography sx={{ mb: 1.5, fontWeight: 700, fontSize: 21 }}>
+              <Typography sx={{ mb: 1.5, fontWeight: 700, fontSize: 23 }}>
                 {`Giriş Yap`}
               </Typography>
             </Box>
-            <Alert icon={false} sx={{ py: 3, mb: 6, ...bgColors.primaryLight, '& .MuiAlert-message': { p: 0 } }}>
-              <Typography variant='body2' sx={{ mb: 2, color: 'primary.main' }}>
-                Admin: <strong>admin@vuexy.com</strong> / Pass: <strong>admin</strong>
-              </Typography>
-              <Typography variant='body2' sx={{ color: 'primary.main' }}>
-                Client: <strong>client@vuexy.com</strong> / Pass: <strong>client</strong>
-              </Typography>
-            </Alert>
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
               <FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller

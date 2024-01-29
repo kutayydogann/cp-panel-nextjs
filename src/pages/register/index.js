@@ -6,7 +6,6 @@ import Link from 'next/link'
 
 // ** MUI Components
 import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
 import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
@@ -171,9 +170,9 @@ const Register = () => {
           }}
         >
           <Box sx={{ width: '100%', maxWidth: 400 }}>
-          <img src='/images/logo-main-black.png' alt='Logo' width={180}/>
+          <img src='/images/logo-main-black.png' alt='Logo' width={200}/>
             <Box sx={{ mb: 6 }}>
-              <Typography sx={{ mb: 1.5, fontWeight: 700, fontSize: 21 }}>
+              <Typography sx={{ mb: 1.5, fontWeight: 700, fontSize: 23 }}>
                 {`Hesap Oluştur`}
               </Typography>
               <Typography sx={{ color: 'text.secondary' }}>Binlerce satıcı, gönderileri için <b>Cargopanel</b>'i kullanıyor. Sen de onlardan biri olmaya ne dersin?</Typography>
