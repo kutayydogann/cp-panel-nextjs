@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Grid, Card, TextField, Typography, CardHeader, CardContent, Divider, Button, InputAdornment } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 const initialData = {
   username: '',
@@ -22,6 +23,58 @@ const AccountSettings = () => {
   const handleSave = () => {
     // Add logic for saving form data
   };
+
+  const [tcNumber, setTCNumber] = useState('');
+  const [resultMessage, setResultMessage] = useState('');
+
+  const validateTC = (newTCNumber) => {
+    // Kontrol edilecek kurallar
+    const rules = [
+      // 1. Kural
+      newTCNumber.length === 11 && /^\d+$/.test(newTCNumber),
+      // 2. Kural
+      newTCNumber.substring(0, 1) !== '0',
+      // 3. Kural
+      ((parseInt(newTCNumber.charAt(0)) +
+        parseInt(newTCNumber.charAt(2)) +
+        parseInt(newTCNumber.charAt(4)) +
+        parseInt(newTCNumber.charAt(6)) +
+        parseInt(newTCNumber.charAt(8))) *
+          7 -
+        (parseInt(newTCNumber.charAt(1)) +
+          parseInt(newTCNumber.charAt(3)) +
+          parseInt(newTCNumber.charAt(5)) +
+          parseInt(newTCNumber.charAt(7)))) %
+          10 ===
+        parseInt(newTCNumber.charAt(9)),
+      // 4. Kural
+      ((parseInt(newTCNumber.charAt(0)) +
+        parseInt(newTCNumber.charAt(1)) +
+        parseInt(newTCNumber.charAt(2)) +
+        parseInt(newTCNumber.charAt(3)) +
+        parseInt(newTCNumber.charAt(4)) +
+        parseInt(newTCNumber.charAt(5)) +
+        parseInt(newTCNumber.charAt(6)) +
+        parseInt(newTCNumber.charAt(7)) +
+        parseInt(newTCNumber.charAt(8)) +
+        parseInt(newTCNumber.charAt(9))) %
+          10 ===
+        parseInt(newTCNumber.charAt(10))),
+    ];
+
+    // Hata kontrolü
+    if (rules.every((rule) => rule)) {
+      toast.success('Kimlik Numarası Doğrulandı');
+    } else {
+      toast.error('Geçerli bir kimlik numarası giriniz');
+    }
+  };
+
+  useEffect(() => {
+    if (tcNumber.length === 11) {
+      validateTC(tcNumber);
+    }
+  }, [tcNumber]);
 
   return (
     <Grid container spacing={6}>
@@ -65,7 +118,12 @@ const AccountSettings = () => {
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <TextField fullWidth label='Kimlik Numarası' inputProps={{ maxLength: 11 }} />
+                  <TextField
+                    fullWidth
+                    label='Kimlik Numarası'
+                    value={tcNumber}
+                    onChange={(e) => setTCNumber(e.target.value.slice(0, 11))}
+                  />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
