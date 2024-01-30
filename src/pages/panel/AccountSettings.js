@@ -25,7 +25,6 @@ const AccountSettings = () => {
   };
 
   const [tcNumber, setTCNumber] = useState('');
-  const [resultMessage, setResultMessage] = useState('');
 
   const validateTC = (newTCNumber) => {
     // Kontrol edilecek kurallar
