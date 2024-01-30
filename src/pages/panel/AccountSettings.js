@@ -27,13 +27,11 @@ const AccountSettings = () => {
   const [tcNumber, setTCNumber] = useState('');
 
   const validateTC = (newTCNumber) => {
-    // Kontrol edilecek kurallar
     const rules = [
-      // 1. Kural
       newTCNumber.length === 11 && /^\d+$/.test(newTCNumber),
-      // 2. Kural
+
       newTCNumber.substring(0, 1) !== '0',
-      // 3. Kural
+
       ((parseInt(newTCNumber.charAt(0)) +
         parseInt(newTCNumber.charAt(2)) +
         parseInt(newTCNumber.charAt(4)) +
@@ -46,7 +44,7 @@ const AccountSettings = () => {
           parseInt(newTCNumber.charAt(7)))) %
           10 ===
         parseInt(newTCNumber.charAt(9)),
-      // 4. Kural
+
       ((parseInt(newTCNumber.charAt(0)) +
         parseInt(newTCNumber.charAt(1)) +
         parseInt(newTCNumber.charAt(2)) +
@@ -61,7 +59,6 @@ const AccountSettings = () => {
         parseInt(newTCNumber.charAt(10))),
     ];
 
-    // Hata kontrolü
     if (rules.every((rule) => rule)) {
       toast.success('Kimlik Numarası Doğrulandı');
     } else {
