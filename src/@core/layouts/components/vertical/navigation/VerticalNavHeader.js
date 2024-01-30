@@ -1,11 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import { styled, useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import Icon from 'src/@core/components/icon';
-import themeConfig from 'src/configs/themeConfig';
 
 const MenuHeaderWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -16,14 +12,6 @@ const MenuHeaderWrapper = styled(Box)(({ theme }) => ({
   minHeight: theme.mixins.toolbar.minHeight,
 }));
 
-const HeaderTitle = styled(Typography)(({ theme }) => ({
-  fontWeight: 600,
-  lineHeight: '24px',
-  fontSize: '1.375rem !important',
-  color: theme.palette.text.primary,
-  transition: 'opacity .25s ease-in-out, margin .25s ease-in-out',
-}));
-
 const LinkStyled = styled(Link)({
   display: 'flex',
   alignItems: 'center',
@@ -31,37 +19,16 @@ const LinkStyled = styled(Link)({
 });
 
 const VerticalNavHeader = (props) => {
-  const {
-    hidden,
-    navHover,
-    settings,
-    saveSettings,
-    collapsedNavWidth,
-    toggleNavVisibility,
-    navigationBorderWidth,
-    menuLockedIcon: userMenuLockedIcon,
-    navMenuBranding: userNavMenuBranding,
-    menuUnlockedIcon: userMenuUnlockedIcon,
-  } = props;
+  const { userNavMenuBranding, collapsedNavWidth, navigationBorderWidth, navCollapsed, navHover } = props;
 
   const theme = useTheme();
-  const { navCollapsed } = settings;
+  const { mode } = theme.palette;
 
-  const isDarkMode = theme.palette.mode === 'dark';
-
-  const toggleDarkMode = () => {
-    saveSettings({ ...settings, mode: isDarkMode ? 'light' : 'dark' });
-  };
-
-  const menuCollapsedStyles = navCollapsed && !navHover ? { opacity: 0 } : { opacity: 1 };
+  const isDarkMode = mode === 'dark';
 
   const menuHeaderPaddingLeft = () => {
     if (navCollapsed && !navHover) {
-      if (userNavMenuBranding) {
-        return 0;
-      } else {
-        return (collapsedNavWidth - navigationBorderWidth - 32) / 8;
-      }
+      return userNavMenuBranding ? 0 : (collapsedNavWidth - navigationBorderWidth - 32) / 8;
     } else {
       return 4.5;
     }
@@ -77,7 +44,7 @@ const VerticalNavHeader = (props) => {
     } else {
       return {
         '& .MuiTypography-root, & .MuiIconButton-root': {
-          color: 'text.primary',
+          color: theme.palette.text.primary,
         },
       };
     }
@@ -89,12 +56,9 @@ const VerticalNavHeader = (props) => {
         userNavMenuBranding(props)
       ) : (
         <LinkStyled href='/'>
-          <img src={isDarkMode ? '/images/logo-main-white.png' : '/images/logo-main-black.png'} alt='Logo' width={180} />
+          <img src={isDarkMode ? '/images/logo-main-white.png' : '/images/logo-main-black.png'} style={{ transition: 'opacity 1s ease-in-out' }} alt='Logo' width={180} />
         </LinkStyled>
       )}
-      <IconButton color='inherit' onClick={toggleDarkMode}>
-        <Icon icon={isDarkMode ? 'sun' : 'moon'} size={20} />
-      </IconButton>
     </MenuHeaderWrapper>
   );
 };
