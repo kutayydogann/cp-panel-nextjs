@@ -86,8 +86,8 @@ const schema = yup.object().shape({
 })
 
 const defaultValues = {
-  password: 'admin',
-  email: 'admin@vuexy.com'
+  password: 'admin2024',
+  email: 'info@cargopanel.co'
 }
 
 const LoginPage = () => {
@@ -176,7 +176,6 @@ const LoginPage = () => {
                       onBlur={onBlur}
                       onChange={onChange}
                       error={Boolean(errors.email)}
-                      placeholder='admin@vuexy.com'
                     />
                   )}
                 />

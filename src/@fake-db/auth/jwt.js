@@ -11,19 +11,11 @@ const users = [
   {
     id: 1,
     role: 'admin',
-    password: 'admin',
-    fullName: 'John Doe',
-    username: 'johndoe',
-    email: 'admin@vuexy.com'
+    password: 'admin2024',
+    fullName: 'Kutay Doğan',
+    username: 'kutaydogan',
+    email: 'info@cargopanel.co'
   },
-  {
-    id: 2,
-    role: 'client',
-    password: 'client',
-    fullName: 'Jane Doe',
-    username: 'janedoe',
-    email: 'client@vuexy.com'
-  }
 ]
 
 // ! These two secrets should be in .env file and not in any other file

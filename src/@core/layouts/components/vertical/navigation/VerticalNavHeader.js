@@ -1,17 +1,15 @@
 // ** Next Import
-import Link from 'next/link'
-
+import React from 'react';
+import Link from 'next/link';
 // ** MUI Imports
-import IconButton from '@mui/material/IconButton'
-import Box from '@mui/material/Box'
-import { styled, useTheme } from '@mui/material/styles'
-import Typography from '@mui/material/Typography'
-
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
+import { styled, useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 // ** Custom Icon Import
-import Icon from 'src/@core/components/icon'
-
+import Icon from 'src/@core/components/icon';
 // ** Configs
-import themeConfig from 'src/configs/themeConfig'
+import themeConfig from 'src/configs/themeConfig';
 
 // ** Styled Components
 const MenuHeaderWrapper = styled(Box)(({ theme }) => ({
@@ -20,25 +18,24 @@ const MenuHeaderWrapper = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   paddingRight: theme.spacing(4.5),
   transition: 'padding .25s ease-in-out',
-  minHeight: theme.mixins.toolbar.minHeight
-}))
+  minHeight: theme.mixins.toolbar.minHeight,
+}));
 
 const HeaderTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
   lineHeight: '24px',
   fontSize: '1.375rem !important',
   color: theme.palette.text.primary,
-  transition: 'opacity .25s ease-in-out, margin .25s ease-in-out'
-}))
+  transition: 'opacity .25s ease-in-out, margin .25s ease-in-out',
+}));
 
 const LinkStyled = styled(Link)({
   display: 'flex',
   alignItems: 'center',
-  textDecoration: 'none'
-})
+  textDecoration: 'none',
+});
 
-const VerticalNavHeader = props => {
-  // ** Props
+const VerticalNavHeader = (props) => {
   const {
     hidden,
     navHover,
@@ -49,41 +46,47 @@ const VerticalNavHeader = props => {
     navigationBorderWidth,
     menuLockedIcon: userMenuLockedIcon,
     navMenuBranding: userNavMenuBranding,
-    menuUnlockedIcon: userMenuUnlockedIcon
-  } = props
+    menuUnlockedIcon: userMenuUnlockedIcon,
+  } = props;
 
-  // ** Hooks & Vars
-  const theme = useTheme()
-  const { mode, navCollapsed } = settings
-  const menuCollapsedStyles = navCollapsed && !navHover ? { opacity: 0 } : { opacity: 1 }
+  const theme = useTheme();
+  const { navCollapsed } = settings;
+
+  const isDarkMode = theme.palette.mode === 'dark';
+
+  const toggleDarkMode = () => {
+    saveSettings({ ...settings, mode: isDarkMode ? 'light' : 'dark' });
+  };
+
+  const menuCollapsedStyles = navCollapsed && !navHover ? { opacity: 0 } : { opacity: 1 };
 
   const menuHeaderPaddingLeft = () => {
     if (navCollapsed && !navHover) {
       if (userNavMenuBranding) {
-        return 0
+        return 0;
       } else {
-        return (collapsedNavWidth - navigationBorderWidth - 32) / 8
+        return (collapsedNavWidth - navigationBorderWidth - 32) / 8;
       }
     } else {
-      return 4.5
+      return 4.5;
     }
-  }
+  };
 
   const conditionalColors = () => {
-    if (mode === 'semi-dark') {
+    if (isDarkMode) {
       return {
         '& .MuiTypography-root, & .MuiIconButton-root': {
-          color: `rgba(${theme.palette.customColors.dark}, 0.87)`
-        }
-      }
+          color: `rgba(${theme.palette.customColors.dark}, 0.87)`,
+        },
+      };
     } else {
       return {
         '& .MuiTypography-root, & .MuiIconButton-root': {
-          color: 'text.primary'
-        }
-      }
+          color: 'text.primary',
+        },
+      };
     }
-  }
+  };
 
   return (
     <MenuHeaderWrapper className='nav-header' sx={{ pl: menuHeaderPaddingLeft(), ...conditionalColors(), display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -91,11 +94,14 @@ const VerticalNavHeader = props => {
         userNavMenuBranding(props)
       ) : (
         <LinkStyled href='/'>
-          <img src='/images/logo-main-black.png' alt='Logo' width={180}/>
+          <img src={isDarkMode ? '/images/logo-main-white.png' : '/images/logo-main-black.png'} alt='Logo' width={180} />
         </LinkStyled>
       )}
+      <IconButton color='inherit' onClick={toggleDarkMode}>
+        <Icon icon={isDarkMode ? 'sun' : 'moon'} size={20} />
+      </IconButton>
     </MenuHeaderWrapper>
-  )
-}
+  );
+};
 
-export default VerticalNavHeader
+export default VerticalNavHeader;

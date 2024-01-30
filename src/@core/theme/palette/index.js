@@ -3,7 +3,7 @@ const DefaultPalette = (mode, skin) => {
   const whiteColor = '#FFF'
   const lightColor = '51, 48, 60'
   const darkColor = '228, 230, 244'
-  const darkPaperBgColor = '#2F3349'
+  const darkPaperBgColor = '#1B1B1B'
   const mainColor = mode === 'light' ? lightColor : darkColor
 
   const defaultBgColor = () => {
@@ -13,7 +13,7 @@ const DefaultPalette = (mode, skin) => {
       return darkPaperBgColor
     } else if (mode === 'light') {
       return '#F8F7FA'
-    } else return '#25293C'
+    } else return '#121212'
   }
 
   return {
@@ -23,7 +23,7 @@ const DefaultPalette = (mode, skin) => {
       light: lightColor,
       lightPaperBg: whiteColor,
       darkPaperBg: darkPaperBgColor,
-      bodyBg: mode === 'light' ? '#F8F7FA' : '#25293C',
+      bodyBg: mode === 'light' ? '#F8F7FA' : '#121212',
       trackBg: mode === 'light' ? '#F1F0F2' : '#3B405B',
       avatarBg: mode === 'light' ? '#F6F6F7' : '#4A5072',
       tableHeaderBg: mode === 'light' ? '#F6F6F7' : '#4A5072'
