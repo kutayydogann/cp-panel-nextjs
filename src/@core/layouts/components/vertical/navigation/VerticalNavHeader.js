@@ -56,7 +56,7 @@ const VerticalNavHeader = (props) => {
         userNavMenuBranding(props)
       ) : (
         <LinkStyled href='/'>
-          <img src={isDarkMode ? '/images/logo-main-white.png' : '/images/logo-main-black.png'} style={{ transition: 'opacity 1s ease-in-out' }} alt='Logo' width={180} />
+          <img src={isDarkMode ? '/images/logo-main-white.png' : '/images/logo-main-black.png'} alt='Logo' width={180} />
         </LinkStyled>
       )}
     </MenuHeaderWrapper>
