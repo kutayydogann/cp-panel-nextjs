@@ -1,17 +1,12 @@
-// ** Next Import
 import React from 'react';
 import Link from 'next/link';
-// ** MUI Imports
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import { styled, useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-// ** Custom Icon Import
 import Icon from 'src/@core/components/icon';
-// ** Configs
 import themeConfig from 'src/configs/themeConfig';
 
-// ** Styled Components
 const MenuHeaderWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
