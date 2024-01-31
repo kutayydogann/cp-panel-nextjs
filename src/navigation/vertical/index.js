@@ -34,6 +34,11 @@ const navigation = () => {
     {
       title: 'Toplama Taleplerim',
       icon: 'tabler:truck',
+      path: '/panel/tt'
+    },
+    {
+      title: 'Taleplerim',
+      icon: 'tabler:message-check',
       path: '/panel/t'
     },
     {

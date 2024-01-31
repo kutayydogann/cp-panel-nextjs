@@ -87,7 +87,7 @@ const DefaultPalette = (mode, skin) => {
     },
     text: {
       primary: `rgba(${mainColor}, 0.87)`,
-      secondary: `rgba(${mainColor}, 0.6)`,
+      secondary: `rgba(${mainColor}, 0.8)`,
       disabled: `rgba(${mainColor}, 0.38)`
     },
     divider: `rgba(${mainColor}, 0.12)`,
