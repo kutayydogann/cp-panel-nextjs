@@ -38,7 +38,7 @@ const navigation = () => {
     },
     {
       title: 'Taleplerim',
-      icon: 'tabler:message-check',
+      icon: 'tabler:message',
       path: '/panel/t'
     },
     {
