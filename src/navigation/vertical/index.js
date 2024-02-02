@@ -64,11 +64,11 @@ const navigation = () => {
       children: [
         {
           title: "Hesap Bilgilerim",
-          path: '/panel/AccountSettings'
+          path: '/panel/accountSettings'
         },
         {
           title: "Şifre Değiştirme",
-          path: '/panel/AccountSecurity'
+          path: '/panel/changePassword'
         },
         {
           title: "Adreslerim",

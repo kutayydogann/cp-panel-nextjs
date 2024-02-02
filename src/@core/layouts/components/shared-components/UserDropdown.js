@@ -125,7 +125,7 @@ const UserDropdown = props => {
           </Box>
         </Box>
         <Divider sx={{ my: theme => `${theme.spacing(2)} !important` }} />
-        <MenuItemStyled sx={{ p: 0 }} onClick={() => handleDropdownClose('/pages/user-profile/profile')}>
+        <MenuItemStyled sx={{ p: 0 }} onClick={() => handleDropdownClose('/panel/accountSettings')}>
           <Box sx={styles}>
             <Icon icon='tabler:settings' />
             Hesap Ayarları
