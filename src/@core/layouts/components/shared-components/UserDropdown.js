@@ -95,7 +95,7 @@ const UserDropdown = props => {
           alt='Kutay Doğan'
           onClick={handleDropdownOpen}
           sx={{ width: 40, height: 40 }}
-          src='/images/avatars/'
+          src='/images/avatars/1.png'
         />
       </Badge>
       <Menu
@@ -116,7 +116,7 @@ const UserDropdown = props => {
                 horizontal: 'right'
               }}
             >
-              <Avatar alt='Kutay Doğan' src='/images/avatars/' sx={{ width: '2.5rem', height: '2.5rem' }} />
+              <Avatar alt='Kutay Doğan' src='/images/avatars/1.png' sx={{ width: '2.5rem', height: '2.5rem' }} />
             </Badge>
             <Box sx={{ display: 'flex', ml: 2.5, alignItems: 'flex-start', flexDirection: 'column' }}>
               <Typography sx={{ fontWeight: 500 }}>Kutay Doğan</Typography>
