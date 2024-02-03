@@ -72,7 +72,7 @@ const navigation = () => {
         },
         {
           title: "Adreslerim",
-          path: '/panel/AccountAdress'
+          path: '/panel/addresses'
         },
       ]
     },
