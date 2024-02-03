@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 // ** Custom Components Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomRadioBasic from 'src/@core/components/custom-radio/basic'
-import CustomRadioIcons from 'src/@core/components/custom-radio/icons'
 
 const initialData = {
   username: '',
@@ -23,7 +22,7 @@ const initialData = {
 };
 
 const AccountSettings = () => {
-  // ** State
+
   const [formData, setFormData] = useState(initialData);
   const [selectedIconRadio, setSelectedIconRadio] = useState('');
   const [selectedBasicRadio, setSelectedBasicRadio] = useState('');
@@ -47,7 +46,6 @@ const AccountSettings = () => {
   const handleRemove = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // Remove action logic
   };
   
   const sender = [
@@ -110,7 +108,6 @@ const AccountSettings = () => {
       ),
     },
   ];
-
 
   return (
     <Grid container spacing={6}>
