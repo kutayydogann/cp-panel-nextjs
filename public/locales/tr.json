@@ -1,16 +1,15 @@
 {
   "Ana Sayfa": "Ana Sayfa",
-  "Teklif": "Teklif",
-  "Teklif Al": "Teklif Al",
+  "Gönderi": "Gönderi",
+  "Gönderi Oluştur": "Gönderi Oluştur",
   "Tekliflerim": "Tekliflerim",
-  "Arama Geçmişim": "Arama Geçmişim",
-  "Sevkiyatlarım": "Sevkiyatlarım",
+  "Gönderilerim": "Gönderilerim",
   "Toplama Taleplerim": "Toplama Taleplerim",
   "Belgelerim": "Belgelerim",
-  "Sevkiyat Belgeleri": "Sevkiyat Belgeleri",
+  "Gönderi Belgeleri": "Gönderi Belgeleri",
   "Faturalar": "Faturalar",
   "Hesap Ayarları": "Hesap Ayarları",
-  "Hesap Bilgileri": "Hesap Bilgileri",
-  "Güvenlik": "Güvenlik",
-  "Adresler": "Adresler"
+  "Hesap Bilgilerim": "Hesap Bilgilerim",
+  "Şifre Değiştirme": "Şifre Değiştirme",
+  "Adreslerim": "Adreslerim"
 }

@@ -23,7 +23,7 @@ const notifications = [
 
 const shortcuts = [
   {
-    title: 'Fiyat Hesapla',
+    title: 'Fiyat Hesaplama',
     url: '/apps/calendar',
     icon: 'tabler:calculator',
     subtitle: 'Hemen Teklif Al'
@@ -32,7 +32,7 @@ const shortcuts = [
     title: 'Bize Ulaşın',
     url: '/apps/contact',
     icon: 'tabler:phone-call',
-    subtitle: 'İletişime Geç'
+    subtitle: 'Destek Hattı'
   },
 ]
 
