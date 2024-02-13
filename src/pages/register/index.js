@@ -48,7 +48,7 @@ const defaultValues = {
 // ** Styled Components
 const RegisterIllustration = styled('img')(({ theme }) => ({
   zIndex: 2,
-  maxHeight: 680,
+  maxHeight: 575,
   marginTop: theme.spacing(12),
   marginBottom: theme.spacing(12),
   [theme.breakpoints.down(1540)]: {
@@ -170,12 +170,11 @@ const Register = () => {
           }}
         >
           <Box sx={{ width: '100%', maxWidth: 400 }}>
-          <img src='/images/logo-main-black.png' alt='Logo' width={200}/>
             <Box sx={{ mb: 6 }}>
-              <Typography sx={{ mb: 1.5, fontWeight: 700, fontSize: 23 }}>
+              <img src='/images/logo-main-black.png' alt='Logo' width={200}/>
+              <Typography variant='h6' sx={{ mt: 3, mb: 1.5, fontWeight: 700}}>
                 {`Hesap Oluştur`}
               </Typography>
-              <Typography sx={{ color: 'text.secondary' }}>Binlerce satıcı, gönderileri için <b>Cargopanel</b>'i kullanıyor. Sen de onlardan biri olmaya ne dersin?</Typography>
             </Box>
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
               <FormControl fullWidth sx={{ mb: 4 }}>

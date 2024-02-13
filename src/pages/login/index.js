@@ -43,7 +43,7 @@ import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 // ** Styled Components
 const LoginIllustration = styled('img')(({ theme }) => ({
   zIndex: 2,
-  maxHeight: 680,
+  maxHeight: 575,
   marginTop: theme.spacing(12),
   marginBottom: theme.spacing(12),
   [theme.breakpoints.down(1540)]: {
@@ -156,9 +156,9 @@ const LoginPage = () => {
           }}
         >
           <Box sx={{ width: '100%', maxWidth: 400, alignItems: 'center', justifyContent: 'left' }}>
-            <img src='/images/logo-main-black.png' alt='Logo' width={200}/>
             <Box sx={{ mb: 6 }}>
-              <Typography sx={{ mb: 1.5, fontWeight: 700, fontSize: 23 }}>
+              <img src='/images/logo-main-black.png' alt='Logo' width={200}/>
+              <Typography variant='h6' sx={{ mt: 3, mb: 1.5, fontWeight: 700}}>
                 {`Giriş Yap`}
               </Typography>
             </Box>
