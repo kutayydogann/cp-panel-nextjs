@@ -18,28 +18,25 @@ const cardStatsData = {
   ],
   statsHorizontal: [
     {
-      stats: '86%',
-      icon: 'tabler:cpu',
-      title: 'CPU Usage'
+      stats: '0',
+      icon: 'tabler:package',
+      title: 'İşleme Alınan Gönderi'
     },
     {
-      stats: '1.24gb',
-      icon: 'tabler:server',
-      title: 'Memory Usage',
-      avatarColor: 'success'
+      stats: '0',
+      icon: 'tabler:building-warehouse',
+      title: 'Depoya Ulaşan Gönderi'
     },
     {
-      stats: '0.2%',
-      avatarColor: 'error',
-      title: 'Downtime Ratio',
-      icon: 'tabler:chart-pie-2'
+      stats: '0',
+      icon: 'tabler:truck',
+      title: 'Çıkışı Yapılan Gönderi'
     },
     {
-      stats: '128',
-      title: 'Issues Found',
-      avatarColor: 'warning',
-      icon: 'tabler:alert-octagon'
-    }
+      stats: '0',
+      icon: 'tabler:progress-check',
+      title: 'Teslim Edilen Gönderi'
+    },
   ],
   statsVertical: [
     {
