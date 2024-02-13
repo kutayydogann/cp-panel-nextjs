@@ -189,12 +189,12 @@ const Register = () => {
                       onBlur={onBlur}
                       label='Ad Soyad'
                       onChange={onChange}
-                      error={Boolean(errors.username)}
+                      error={Boolean(errors.firstName)}
                     />
                   )}
                 />
-                {errors.username && (
-                  <FormHelperText sx={{ color: 'error.main' }}>{errors.username.message}</FormHelperText>
+                {errors.firstName && (
+                  <FormHelperText sx={{ color: 'error.main' }}>{errors.firstName.message}</FormHelperText>
                 )}
               </FormControl>
               <FormControl fullWidth sx={{ mb: 4 }}>
