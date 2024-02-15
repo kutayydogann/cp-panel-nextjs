@@ -6,7 +6,7 @@ const navigation = () => {
     {
       title: 'Ana Sayfa',
       icon: 'tabler:smart-home',
-      path: '/panel/home'
+      path: '/panel/homePage'
     },
     {
       sectionTitle: 'Gönderi'
