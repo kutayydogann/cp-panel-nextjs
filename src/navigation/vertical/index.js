@@ -14,12 +14,12 @@ const navigation = () => {
     {
       title: 'Gönderi Oluştur',
       icon: 'tabler:plus',
-      path: '/panel/'
+      path: '/panel/createShipment'
     },
     {
       title: 'Tekliflerim',
       icon: 'tabler:clipboard-text',
-      path: '/panel/myOffers'
+      path: '/panel/manualQuotes'
     },
     {
       title: 'Gönderilerim',
@@ -29,12 +29,12 @@ const navigation = () => {
     {
       title: 'Toplama Taleplerim',
       icon: 'tabler:truck',
-      path: '/panel/tt'
+      path: '/panel/pickupRequests'
     },
     {
       title: 'Taleplerim',
       icon: 'tabler:message',
-      path: '/panel/t'
+      path: '/panel/requests'
     },
     {
       title: 'Belgelerim',
@@ -42,18 +42,18 @@ const navigation = () => {
       children: [
         {
           title: "Gönderi Belgeleri",
-          path: '/panel/s'
+          path: '/panel/documents/shipment'
         },
         {
           title: "Faturalarım",
-          path: '/panel/f'
+          path: '/panel/documents/invoices'
         },
       ]
     },
     {
       title: 'Fiyat Hesaplama',
       icon: 'tabler:calculator',
-      path: '/panel/c'
+      path: '/panel/priceCalculation'
     },
     {
       sectionTitle: 'Ayarlar'
@@ -64,15 +64,15 @@ const navigation = () => {
       children: [
         {
           title: "Hesap Bilgilerim",
-          path: '/panel/accountSettings'
+          path: '/panel/settings/account'
         },
         {
           title: "Şifre Değiştirme",
-          path: '/panel/changePassword'
+          path: '/panel/settings/changePassword'
         },
         {
           title: "Adreslerim",
-          path: '/panel/addresses'
+          path: '/panel/settings/addresses'
         },
       ]
     },

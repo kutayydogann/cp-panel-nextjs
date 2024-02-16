@@ -31,7 +31,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
-import useBgColor from 'src/@core/hooks/useBgColor'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Layout Import
@@ -97,7 +96,6 @@ const LoginPage = () => {
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
-  const bgColors = useBgColor()
   const { settings } = useSettings()
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
@@ -128,23 +126,6 @@ const LoginPage = () => {
 
   return (
     <Box className='content-right' sx={{ backgroundColor: 'background.paper' }}>
-      {!hidden ? (
-        <Box
-          sx={{
-            flex: 1,
-            display: 'flex',
-            position: 'relative',
-            alignItems: 'center',
-            borderRadius: '20px',
-            justifyContent: 'center',
-            backgroundColor: 'customColors.bodyBg',
-            margin: theme => theme.spacing(8, 0, 8, 8)
-          }}
-        >
-          <LoginIllustration alt='login-illustration' src={`/images/login.webp`} />
-          <FooterIllustrationsV2 />
-        </Box>
-      ) : null}
       <RightWrapper>
         <Box
           sx={{
@@ -158,7 +139,7 @@ const LoginPage = () => {
           <Box sx={{ width: '100%', maxWidth: 400, alignItems: 'center', justifyContent: 'left' }}>
             <Box sx={{ mb: 6 }}>
               <img src='/images/logo-main-black.png' alt='Logo' width={200}/>
-              <Typography variant='h6' sx={{ mt: 3, mb: 1.5, fontWeight: 700}}>
+              <Typography variant='h6' sx={{ mt: 3, fontWeight: 700}}>
                 {`Giriş Yap`}
               </Typography>
             </Box>
@@ -179,7 +160,7 @@ const LoginPage = () => {
                     />
                   )}
                 />
-                {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>}
+                {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>}
               </FormControl>
               <FormControl fullWidth sx={{ mb: 1.5 }}>
                 <InputLabel htmlFor='auth-login-v2-password' error={Boolean(errors.password)}>
@@ -213,9 +194,7 @@ const LoginPage = () => {
                   )}
                 />
                 {errors.password && (
-                  <FormHelperText sx={{ color: 'error.main' }} id=''>
-                    {errors.password.message}
-                  </FormHelperText>
+                  <FormHelperText sx={{ color: 'error.main' }} id=''>{'Bu alan zorunludur'}</FormHelperText>
                 )}
               </FormControl>
               <Box
@@ -240,7 +219,7 @@ const LoginPage = () => {
                 <Typography sx={{ color: 'text.secondary', mr: 2 }}>Hesabınız yok mu?</Typography>
                 <Typography variant='body2'>
                   <LinkStyled href='/register' sx={{ fontSize: '1rem' }}>
-                    Hesap Oluştur
+                    Kayıt Ol
                   </LinkStyled>
                 </Typography>
               </Box>
@@ -248,6 +227,23 @@ const LoginPage = () => {
           </Box>
         </Box>
       </RightWrapper>
+      {!hidden ? (
+        <Box
+          sx={{
+            flex: 1,
+            display: 'flex',
+            position: 'relative',
+            alignItems: 'center',
+            borderRadius: '20px',
+            justifyContent: 'center',
+            backgroundColor: 'customColors.bodyBg',
+            margin: theme => theme.spacing(8, 8, 8, 0)
+          }}
+        >
+          <LoginIllustration alt='login-illustration' src={`/images/login.webp`} />
+          <FooterIllustrationsV2 />
+        </Box>
+      ) : null}
     </Box>
   )
 }

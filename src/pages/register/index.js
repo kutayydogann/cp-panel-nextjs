@@ -38,13 +38,6 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 
-const defaultValues = {
-  email: '',
-  username: '',
-  password: '',
-  terms: false
-}
-
 // ** Styled Components
 const RegisterIllustration = styled('img')(({ theme }) => ({
   zIndex: 2,
@@ -101,10 +94,12 @@ const Register = () => {
   const { skin } = settings
 
   const schema = yup.object().shape({
-    password: yup.string().min(5).required(),
-    username: yup.string().min(3).required(),
+    firstName: yup.string().min(3).required(),
+    lastName: yup.string().min(3).required(),
+    phone: yup.string().required(),
     email: yup.string().email().required(),
-    terms: yup.bool().oneOf([true], 'You must accept the privacy policy & terms')
+    password: yup.string().min(8).required(),
+    terms: yup.bool().oneOf([true], 'Bu alan zorunludur')
   })
 
   const {
@@ -113,7 +108,6 @@ const Register = () => {
     handleSubmit,
     formState: { errors }
   } = useForm({
-    defaultValues,
     mode: 'onBlur',
     resolver: yupResolver(schema)
   })
@@ -139,26 +133,6 @@ const Register = () => {
 
   return (
     <Box className='content-right' sx={{ backgroundColor: 'background.paper' }}>
-      {!hidden ? (
-        <Box
-          sx={{
-            flex: 1,
-            display: 'flex',
-            position: 'relative',
-            alignItems: 'center',
-            borderRadius: '20px',
-            justifyContent: 'center',
-            backgroundColor: 'customColors.bodyBg',
-            margin: theme => theme.spacing(8, 0, 8, 8)
-          }}
-        >
-          <RegisterIllustration
-            alt='register-illustration'
-            src={`/images/login.webp`}
-          />
-          <FooterIllustrationsV2 />
-        </Box>
-      ) : null}
       <RightWrapper>
         <Box
           sx={{
@@ -172,34 +146,54 @@ const Register = () => {
           <Box sx={{ width: '100%', maxWidth: 400 }}>
             <Box sx={{ mb: 6 }}>
               <img src='/images/logo-main-black.png' alt='Logo' width={200}/>
-              <Typography variant='h6' sx={{ mt: 3, mb: 1.5, fontWeight: 700}}>
-                {`Hesap Oluştur`}
+              <Typography variant='h6' sx={{ mt: 3, fontWeight: 700}}>
+                {`Kayıt Ol`}
               </Typography>
             </Box>
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-              <FormControl fullWidth sx={{ mb: 4 }}>
-                <Controller
-                  name='username'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
-                    <TextField
-                      autoFocus
-                      value={value}
-                      onBlur={onBlur}
-                      label='Ad Soyad'
-                      onChange={onChange}
-                      error={Boolean(errors.firstName)}
-                    />
+              <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
+                <FormControl fullWidth>
+                  <Controller
+                    name='firstName'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        value={value}
+                        onBlur={onBlur}
+                        label='Ad'
+                        onChange={onChange}
+                        error={Boolean(errors.firstName)}
+                      />
+                    )}
+                  />
+                  {errors.firstName && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>
                   )}
-                />
-                {errors.firstName && (
-                  <FormHelperText sx={{ color: 'error.main' }}>{errors.firstName.message}</FormHelperText>
-                )}
-              </FormControl>
+                </FormControl>
+                <FormControl fullWidth>
+                  <Controller
+                    name='lastName'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        value={value}
+                        onBlur={onBlur}
+                        label='Soyad'
+                        onChange={onChange}
+                        error={Boolean(errors.lastName)}
+                      />
+                    )}
+                  />
+                  {errors.lastName && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>
+                  )}
+                </FormControl>
+              </Box>
               <FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller
-                  name='companyname'
+                  name='companyName'
                   control={control}
                   rules={{ required: true }}
                   render={({ field: { value, onChange, onBlur } }) => (
@@ -208,11 +202,10 @@ const Register = () => {
                       label='Şirket Adı (Opsiyonel)'
                       onBlur={onBlur}
                       onChange={onChange}
-                      error={Boolean(errors.companyname)}
+                      error={Boolean(errors.companyName)}
                     />
                   )}
                 />
-                {errors.companyname && <FormHelperText sx={{ color: 'error.main' }}>{errors.companyname.message}</FormHelperText>}
               </FormControl>
               <FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller
@@ -229,7 +222,7 @@ const Register = () => {
                     />
                   )}
                 />
-                {errors.phone && <FormHelperText sx={{ color: 'error.main' }}>{errors.phone.message}</FormHelperText>}
+                {errors.phone && <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>}
               </FormControl>
               <FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller
@@ -246,7 +239,7 @@ const Register = () => {
                     />
                   )}
                 />
-                {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>}
+                {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>}
               </FormControl>
               <FormControl fullWidth>
                 <InputLabel htmlFor='auth-login-v2-password' error={Boolean(errors.password)}>
@@ -280,7 +273,7 @@ const Register = () => {
                   )}
                 />
                 {errors.password && (
-                  <FormHelperText sx={{ color: 'error.main' }}>{errors.password.message}</FormHelperText>
+                  <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>
                 )}
               </FormControl>
 
@@ -344,6 +337,26 @@ const Register = () => {
           </Box>
         </Box>
       </RightWrapper>
+      {!hidden ? (
+        <Box
+          sx={{
+            flex: 1,
+            display: 'flex',
+            position: 'relative',
+            alignItems: 'center',
+            borderRadius: '20px',
+            justifyContent: 'center',
+            backgroundColor: 'customColors.bodyBg',
+            margin: theme => theme.spacing(8, 8, 8, 0)
+          }}
+        >
+          <RegisterIllustration
+            alt='register-illustration'
+            src={`/images/login.webp`}
+          />
+          <FooterIllustrationsV2 />
+        </Box>
+      ) : null}
     </Box>
   )
 }

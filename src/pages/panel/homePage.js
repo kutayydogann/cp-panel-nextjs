@@ -1,27 +1,15 @@
-// ** MUI Import
-import Grid from '@mui/material/Grid'
+import React from 'react';
+import { Grid } from '@mui/material';
 
-// ** Demo Component Imports
-import AnalyticsOrderVisits from 'src/views/dashboards/analytics/AnalyticsOrderVisits'
+const HomePage = () => {
 
-// ** Custom Component Import
-import KeenSliderWrapper from 'src/@core/styles/libs/keen-slider'
-import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
-
-//<Grid item xs={12} sm={6} lg={3}>
-//<AnalyticsOrderVisits />
-//</Grid>
-
-const AnalyticsDashboard = () => {
   return (
-    <ApexChartWrapper>
-      <KeenSliderWrapper>
-        <Grid container spacing={6}>
+    <Grid container spacing={6}>
+      <Grid item xs={12}>
 
-        </Grid>
-      </KeenSliderWrapper>
-    </ApexChartWrapper>
-  )
-}
+      </Grid>
+    </Grid>
+  );
+};
 
-export default AnalyticsDashboard
+export default HomePage;

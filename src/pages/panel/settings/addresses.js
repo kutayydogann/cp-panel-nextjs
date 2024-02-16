@@ -21,7 +21,7 @@ const initialData = {
   number: ''
 };
 
-const AccountSettings = () => {
+const Addresses = () => {
 
   const [formData, setFormData] = useState(initialData);
   const [selectedIconRadio, setSelectedIconRadio] = useState('');
@@ -79,36 +79,6 @@ const AccountSettings = () => {
     },
   ];
 
-  const receiver = [
-    {
-      value: 'office',
-      title: 'ACME Inc.',
-      meta: <CustomChip rounded size='small' skin='light' label='Kurumsal' color='success' />,
-      content: (
-        <Box sx={{ mt: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
-          <Typography variant='body2' sx={{ mb: 'auto' }}>
-            87 Hoffman Avenue, New York, NY, 10016.
-            <br />
-            Telefon Numarası : +1234567890
-          </Typography>
-          <Divider sx={{ my: (theme) => `${theme.spacing(2.5)} !important` }} />
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Link href='/' onClick={handleEdit}>
-              <Button sx={{color: 'primary.main', textDecoration: 'none' }}>
-                Düzenle
-              </Button>
-            </Link>
-            <Link href='/' onClick={handleRemove}>
-              <Button sx={{color: 'primary.main', textDecoration: 'none' }}>
-                Kaldır
-              </Button>
-            </Link>
-          </Box>
-        </Box>
-      ),
-    },
-  ];
-
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
@@ -140,16 +110,19 @@ const AccountSettings = () => {
             <CardContent>
               <Typography variant='body2' sx={{ fontWeight: 600, mb: 4 }}>Alıcı Adreslerim</Typography>
               <Grid container spacing={4}>
-                {receiver.map((item, index) => (
-                  <Grid key={index} item xs={12} sm={4}>
-                    <CustomRadioBasic
-                      data={item}
-                      name={`custom-radios-address-${index}`}
-                      selected={selectedBasicRadio}
-                      handleChange={handleBasicRadioChange}
-                    />
-                  </Grid>
-                ))}
+
+              </Grid>
+              <Grid item xs={12} sx={{ pt: (theme) => `${theme.spacing(6.5)} !important` }}>
+                <Button variant='outlined' sx={{ mr: 4 }}>
+                  Yeni Adres Ekle
+                </Button>
+              </Grid>
+            </CardContent>
+            <Divider />
+            <CardContent>
+              <Typography variant='body2' sx={{ fontWeight: 600, mb: 4 }}>Fatura Adreslerim</Typography>
+              <Grid container spacing={4}>
+                  
               </Grid>
               <Grid item xs={12} sx={{ pt: (theme) => `${theme.spacing(6.5)} !important` }}>
                 <Button variant='outlined' sx={{ mr: 4 }}>
@@ -164,4 +137,4 @@ const AccountSettings = () => {
   );
 };
 
-export default AccountSettings;
+export default Addresses;

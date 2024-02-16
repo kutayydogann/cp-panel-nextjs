@@ -63,26 +63,6 @@ const ForgotPassword = () => {
 
   return (
     <Box className='content-right' sx={{ backgroundColor: 'background.paper' }}>
-      {!hidden ? (
-        <Box
-          sx={{
-            flex: 1,
-            display: 'flex',
-            position: 'relative',
-            alignItems: 'center',
-            borderRadius: '20px',
-            justifyContent: 'center',
-            backgroundColor: 'customColors.bodyBg',
-            margin: theme => theme.spacing(8, 0, 8, 8)
-          }}
-        >
-          <ForgotPasswordIllustration
-            alt='forgot-password-illustration'
-            src={`/images/login.webp`}
-          />
-          <FooterIllustrationsV2 />
-        </Box>
-      ) : null}
       <RightWrapper>
         <Box
           sx={{
@@ -116,6 +96,26 @@ const ForgotPassword = () => {
           </Box>
         </Box>
       </RightWrapper>
+      {!hidden ? (
+        <Box
+          sx={{
+            flex: 1,
+            display: 'flex',
+            position: 'relative',
+            alignItems: 'center',
+            borderRadius: '20px',
+            justifyContent: 'center',
+            backgroundColor: 'customColors.bodyBg',
+            margin: theme => theme.spacing(8, 8, 8, 0)
+          }}
+        >
+          <ForgotPasswordIllustration
+            alt='forgot-password-illustration'
+            src={`/images/login.webp`}
+          />
+          <FooterIllustrationsV2 />
+        </Box>
+      ) : null}
     </Box>
   )
 }

@@ -12,7 +12,7 @@ const initialData = {
   number: ''
 };
 
-const AccountSettings = () => {
+const Account = () => {
   // ** State
   const [formData, setFormData] = useState(initialData);
   
@@ -72,6 +72,13 @@ const AccountSettings = () => {
     }
   }, [tcNumber]);
 
+  const phoneNumber = (input) => {
+    const numericValue = input.replace(/\D/g, '');
+    const truncatedValue = numericValue.slice(0, 10);
+    const formattedNumber = truncatedValue.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4');
+    return formattedNumber;
+  };
+
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
@@ -126,12 +133,11 @@ const AccountSettings = () => {
                     fullWidth
                     type='tel'
                     label='Telefon Numarası'
-                    options={{ phone: true, phoneRegionCode: 'US' }}
-                    value={formData.number}
+                    value={phoneNumber(formData.number)}
                     placeholder='850 309 15 91'
                     onChange={(e) => handleFormChange('number', e.target.value)}
                     InputProps={{
-                      startAdornment: <InputAdornment position='start'>TR (+90)</InputAdornment>
+                      startAdornment: <InputAdornment position='start'>TR (+90)</InputAdornment>,
                     }}
                   />
                 </Grid>
@@ -150,4 +156,4 @@ const AccountSettings = () => {
   );
 };
 
-export default AccountSettings;
+export default Account;
