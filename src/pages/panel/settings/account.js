@@ -89,8 +89,15 @@ const Account = () => {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
-                    label='Ad Soyad'
-                    onChange={(e) => handleFormChange('username', e.target.value)}
+                    label='Ad'
+                    onChange={(e) => handleFormChange('firstName', e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label='Soyad'
+                    onChange={(e) => handleFormChange('lastName', e.target.value)}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
