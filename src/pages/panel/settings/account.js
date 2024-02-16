@@ -72,12 +72,6 @@ const Account = () => {
     }
   }, [tcNumber]);
 
-  const phoneNumber = (input) => {
-    const numericValue = input.replace(/\D/g, '');
-    const truncatedValue = numericValue.slice(0, 10);
-    const formattedNumber = truncatedValue.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4');
-  };
-
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
@@ -132,7 +126,6 @@ const Account = () => {
                     fullWidth
                     type='tel'
                     label='Telefon Numarası'
-                    value={phoneNumber(formData.number)}
                     placeholder='850 309 15 91'
                     onChange={(e) => handleFormChange('number', e.target.value)}
                     InputProps={{
