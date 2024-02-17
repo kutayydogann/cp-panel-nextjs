@@ -3,6 +3,7 @@ import { useState, Fragment } from 'react'
 
 // ** Next Import
 import Link from 'next/link'
+import Flag from 'react-country-flag'
 
 // ** MUI Components
 import Button from '@mui/material/Button'
@@ -19,6 +20,8 @@ import { styled, useTheme } from '@mui/material/styles'
 import FormHelperText from '@mui/material/FormHelperText'
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -80,9 +83,22 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
   }
 }))
 
+const countryCodes = {
+  TR: '+90',
+  US: '+1',
+};
+
+const countries = [
+  { value: 'TR', label: 'Türkiye' },
+  { value: 'US', label: 'United States' },
+];
+
+const defaultCountry = 'TR';
+
 const Register = () => {
   // ** States
   const [showPassword, setShowPassword] = useState(false)
+  const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
 
   // ** Hooks
   const theme = useTheme()
@@ -113,22 +129,12 @@ const Register = () => {
   })
 
   const onSubmit = data => {
-    const { email, username, password } = data
-    register({ email, username, password }, err => {
-      if (err.email) {
-        setError('email', {
-          type: 'manual',
-          message: err.email
-        })
-      }
-      if (err.username) {
-        setError('username', {
-          type: 'manual',
-          message: err.username
-        })
-      }
-    })
-  }
+    const { email, username, password } = data;
+    const phoneNumber = selectedCountry ? `+${selectedCountry} ${data.phone}` : data.phone;
+    register({ email, username, password, phoneNumber }, err => {
+      // Hata yönetimi
+    });
+  };
 
   return (
     <Box className='content-right' sx={{ backgroundColor: 'background.paper' }}>
@@ -206,23 +212,45 @@ const Register = () => {
                   )}
                 />
               </FormControl>
-              <FormControl fullWidth sx={{ mb: 4 }}>
-                <Controller
-                  name='phone'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
-                    <TextField
-                      value={value}
-                      label='Telefon Numarası'
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      error={Boolean(errors.phone)}
-                    />
+              <Box sx={{ display: 'flex', gap: 2, mb: 4, alignItems: 'flex-end' }}>
+                <FormControl fullWidth sx={{ flex: '4' }}>
+                  <InputLabel htmlFor='country-code'>Ülke Kodu</InputLabel>
+                  <Select
+                    label='Ülke Kodu'
+                    id='country-code'
+                    value={selectedCountry}
+                    onChange={(e) => setSelectedCountry(e.target.value)}
+                  >
+                    {countries.map((country) => (
+                      <MenuItem key={country.value} value={country.value}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <Flag countryCode={country.value} svg />
+                          <span style={{ marginLeft: '0.5em' }}>{countryCodes[country.value]}</span>
+                        </div>
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl fullWidth sx={{ flex: '8' }}>
+                  <Controller
+                    name='phone'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        value={value}
+                        label='Telefon Numarası'
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        error={Boolean(errors.phone)}
+                      />
+                    )}
+                  />
+                  {errors.phone && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>
                   )}
-                />
-                {errors.phone && <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>}
-              </FormControl>
+                </FormControl>
+              </Box>
               <FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller
                   name='email'
