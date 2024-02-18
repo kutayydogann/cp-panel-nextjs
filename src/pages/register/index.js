@@ -31,10 +31,6 @@ import { useForm, Controller } from 'react-hook-form'
 // ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Hooks
-import { useAuth } from 'src/hooks/useAuth'
-import { useSettings } from 'src/@core/hooks/useSettings'
-
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 
@@ -81,54 +77,38 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
 }))
 
 const Register = () => {
-  // ** States
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
 
-  // ** Hooks
   const theme = useTheme()
-  const { register } = useAuth()
-  const { settings } = useSettings()
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
-
-  // ** Vars
-  const { skin } = settings
 
   const schema = yup.object().shape({
     firstName: yup.string().min(3).required(),
     lastName: yup.string().min(3).required(),
     phone: yup.string().required(),
     email: yup.string().email().required(),
-    password: yup.string().min(8).required(),
+    password: yup.string().min(8).matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*?])/).required(),
     terms: yup.bool().oneOf([true], 'Bu alan zorunludur')
-  })
+  });
 
-  const {
-    control,
-    setError,
-    handleSubmit,
-    formState: { errors }
-  } = useForm({
+  const { control, handleSubmit, formState: { errors } } = useForm({
     mode: 'onBlur',
-    resolver: yupResolver(schema)
-  })
+    resolver: yupResolver(schema),
+    defaultValues: { // Başlangıç değerleri eklendi
+      firstName: '',
+      lastName: '',
+      companyName: '',
+      phone: '',
+      email: '',
+      password: '',
+      terms: false
+    }
+  });
 
   const onSubmit = data => {
-    const { email, username, password } = data
-    register({ email, username, password }, err => {
-      if (err.email) {
-        setError('email', {
-          type: 'manual',
-          message: err.email
-        })
-      }
-      if (err.username) {
-        setError('username', {
-          type: 'manual',
-          message: err.username
-        })
-      }
-    })
-  }
+    const { firstName, lastName, companyName, phone, email, password } = data;
+    // Backend işlemleri eklenecek
+  };
 
   return (
     <Box className='content-right' sx={{ backgroundColor: 'background.paper' }}>
@@ -272,7 +252,7 @@ const Register = () => {
                   )}
                 />
                 {errors.password && (
-                  <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>
+                  <FormHelperText sx={{ color: 'error.main' }}>{'Şifreniz en az 8 karakterden oluşmalıdır'}</FormHelperText>
                 )}
               </FormControl>
 
