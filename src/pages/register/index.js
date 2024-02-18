@@ -94,7 +94,7 @@ const Register = () => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema),
-    defaultValues: { // Başlangıç değerleri eklendi
+    defaultValues: {
       firstName: '',
       lastName: '',
       companyName: '',
@@ -107,7 +107,7 @@ const Register = () => {
 
   const onSubmit = data => {
     const { firstName, lastName, companyName, phone, email, password } = data;
-    // Backend işlemleri eklenecek
+
   };
 
   return (
