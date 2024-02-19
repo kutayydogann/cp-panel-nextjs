@@ -133,11 +133,7 @@ const Account = () => {
                     fullWidth
                     type='tel'
                     label='Telefon Numarası'
-                    placeholder='850 309 15 91'
                     onChange={(e) => handleFormChange('number', e.target.value)}
-                    InputProps={{
-                      startAdornment: <InputAdornment position='start'>TR (+90)</InputAdornment>,
-                    }}
                   />
                 </Grid>
 
