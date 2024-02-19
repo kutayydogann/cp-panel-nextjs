@@ -87,7 +87,7 @@ const LoginPage = () => {
   const theme = useTheme()
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
-  const { handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors } } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema),
     defaultValues: {
@@ -121,10 +121,19 @@ const LoginPage = () => {
             </Box>
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
               <FormControl fullWidth sx={{ mb: 4 }}>
-                <TextField
-                  label='E-Posta'
+              <Controller
                   name='email'
-                  error={Boolean(errors.email)}
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <TextField
+                      autoFocus
+                      label='E-Posta'
+                      value={value}
+                      onChange={onChange}
+                      error={Boolean(errors.email)}
+                    />
+                  )}
                 />
                 {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>}
               </FormControl>
@@ -132,22 +141,30 @@ const LoginPage = () => {
                 <InputLabel htmlFor='auth-login-v2-password' error={Boolean(errors.password)}>
                   Şifre
                 </InputLabel>
-                <OutlinedInput
-                  label='Şifre'
+                <Controller
                   name='password'
-                  error={Boolean(errors.password)}
-                  type={showPassword ? 'text' : 'password'}
-                  endAdornment={
-                    <InputAdornment position='end'>
-                      <IconButton
-                        edge='end'
-                        onMouseDown={e => e.preventDefault()}
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        <Icon icon={showPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
-                      </IconButton>
-                    </InputAdornment>
-                  }
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <OutlinedInput
+                      value={value}
+                      label='Şifre'
+                      onChange={onChange}
+                      error={Boolean(errors.password)}
+                      type={showPassword ? 'text' : 'password'}
+                      endAdornment={
+                        <InputAdornment position='end'>
+                          <IconButton
+                            edge='end'
+                            onMouseDown={e => e.preventDefault()}
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            <Icon icon={showPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                  )}
                 />
                 {errors.password && (
                   <FormHelperText sx={{ color: 'error.main' }} id=''>{'Bu alan zorunludur'}</FormHelperText>
