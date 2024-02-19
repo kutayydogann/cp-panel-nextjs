@@ -5,7 +5,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 // ** MUI Components
-import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
@@ -28,10 +27,6 @@ import Icon from 'src/@core/components/icon'
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-
-// ** Hooks
-import { useAuth } from 'src/hooks/useAuth'
-import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
@@ -81,41 +76,28 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
-  password: yup.string().min(5).required()
+  password: yup.string().min(8).required()
 })
-
-const defaultValues = {
-  password: 'admin2024',
-  email: 'info@cargopanel.co'
-}
 
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState(true)
   const [showPassword, setShowPassword] = useState(false)
 
-  const auth = useAuth()
+  // ** Hooks
   const theme = useTheme()
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
-  const {
-    control,
-    setError,
-    handleSubmit,
-    formState: { errors }
-  } = useForm({
-    defaultValues,
+  const { handleSubmit, formState: { errors } } = useForm({
     mode: 'onBlur',
-    resolver: yupResolver(schema)
-  })
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: '',
+      password: '',
+    }
+  });
 
   const onSubmit = data => {
-    const { email, password } = data
-    auth.login({ email, password, rememberMe }, () => {
-      setError('email', {
-        type: 'manual',
-        message: 'Email or Password is invalid'
-      })
-    })
+    const { email, password } = data;
   }
 
   return (
@@ -139,20 +121,10 @@ const LoginPage = () => {
             </Box>
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
               <FormControl fullWidth sx={{ mb: 4 }}>
-                <Controller
+                <TextField
+                  label='E-Posta'
                   name='email'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
-                    <TextField
-                      autoFocus
-                      label='E-Posta'
-                      value={value}
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      error={Boolean(errors.email)}
-                    />
-                  )}
+                  error={Boolean(errors.email)}
                 />
                 {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>}
               </FormControl>
@@ -160,32 +132,22 @@ const LoginPage = () => {
                 <InputLabel htmlFor='auth-login-v2-password' error={Boolean(errors.password)}>
                   Şifre
                 </InputLabel>
-                <Controller
+                <OutlinedInput
+                  label='Şifre'
                   name='password'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
-                    <OutlinedInput
-                      value={value}
-                      onBlur={onBlur}
-                      label='Password'
-                      onChange={onChange}
-                      id='auth-login-v2-password'
-                      error={Boolean(errors.password)}
-                      type={showPassword ? 'text' : 'password'}
-                      endAdornment={
-                        <InputAdornment position='end'>
-                          <IconButton
-                            edge='end'
-                            onMouseDown={e => e.preventDefault()}
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            <Icon icon={showPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                  )}
+                  error={Boolean(errors.password)}
+                  type={showPassword ? 'text' : 'password'}
+                  endAdornment={
+                    <InputAdornment position='end'>
+                      <IconButton
+                        edge='end'
+                        onMouseDown={e => e.preventDefault()}
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        <Icon icon={showPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
+                      </IconButton>
+                    </InputAdornment>
+                  }
                 />
                 {errors.password && (
                   <FormHelperText sx={{ color: 'error.main' }} id=''>{'Bu alan zorunludur'}</FormHelperText>

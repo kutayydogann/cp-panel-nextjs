@@ -3,7 +3,6 @@ import { useState, Fragment } from 'react'
 
 // ** Next Import
 import Link from 'next/link'
-import Flag from 'react-country-flag'
 
 // ** MUI Components
 import Button from '@mui/material/Button'
@@ -20,8 +19,6 @@ import { styled, useTheme } from '@mui/material/styles'
 import FormHelperText from '@mui/material/FormHelperText'
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -33,10 +30,6 @@ import { useForm, Controller } from 'react-hook-form'
 
 // ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
-
-// ** Hooks
-import { useAuth } from 'src/hooks/useAuth'
-import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
@@ -83,57 +76,38 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
   }
 }))
 
-const countryCodes = {
-  TR: '+90',
-  US: '+1',
-};
-
-const countries = [
-  { value: 'TR', label: 'Türkiye' },
-  { value: 'US', label: 'United States' },
-];
-
-const defaultCountry = 'TR';
-
 const Register = () => {
-  // ** States
-  const [showPassword, setShowPassword] = useState(false)
-  const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
+  const [showPassword, setShowPassword] = useState(false);
 
-  // ** Hooks
   const theme = useTheme()
-  const { register } = useAuth()
-  const { settings } = useSettings()
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
-
-  // ** Vars
-  const { skin } = settings
 
   const schema = yup.object().shape({
     firstName: yup.string().min(3).required(),
     lastName: yup.string().min(3).required(),
     phone: yup.string().required(),
     email: yup.string().email().required(),
-    password: yup.string().min(8).required(),
+    password: yup.string().min(8).matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*?])/).required(),
     terms: yup.bool().oneOf([true], 'Bu alan zorunludur')
-  })
+  });
 
-  const {
-    control,
-    setError,
-    handleSubmit,
-    formState: { errors }
-  } = useForm({
+  const { control, handleSubmit, formState: { errors } } = useForm({
     mode: 'onBlur',
-    resolver: yupResolver(schema)
-  })
+    resolver: yupResolver(schema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      companyName: '',
+      phone: '',
+      email: '',
+      password: '',
+      terms: false
+    }
+  });
 
   const onSubmit = data => {
-    const { email, username, password } = data;
-    const phoneNumber = selectedCountry ? `+${selectedCountry} ${data.phone}` : data.phone;
-    register({ email, username, password, phoneNumber }, err => {
-      // Hata yönetimi
-    });
+    const { firstName, lastName, companyName, phone, email, password } = data;
+
   };
 
   return (
@@ -212,45 +186,23 @@ const Register = () => {
                   )}
                 />
               </FormControl>
-              <Box sx={{ display: 'flex', gap: 2, mb: 4, alignItems: 'flex-end' }}>
-                <FormControl fullWidth sx={{ flex: '4' }}>
-                  <InputLabel htmlFor='country-code'>Ülke Kodu</InputLabel>
-                  <Select
-                    label='Ülke Kodu'
-                    id='country-code'
-                    value={selectedCountry}
-                    onChange={(e) => setSelectedCountry(e.target.value)}
-                  >
-                    {countries.map((country) => (
-                      <MenuItem key={country.value} value={country.value}>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <Flag countryCode={country.value} svg />
-                          <span style={{ marginLeft: '0.5em' }}>{countryCodes[country.value]}</span>
-                        </div>
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl fullWidth sx={{ flex: '8' }}>
-                  <Controller
-                    name='phone'
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field: { value, onChange, onBlur } }) => (
-                      <TextField
-                        value={value}
-                        label='Telefon Numarası'
-                        onBlur={onBlur}
-                        onChange={onChange}
-                        error={Boolean(errors.phone)}
-                      />
-                    )}
-                  />
-                  {errors.phone && (
-                    <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>
+              <FormControl fullWidth sx={{ mb: 4 }}>
+                <Controller
+                  name='phone'
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <TextField
+                      value={value}
+                      label='Telefon Numarası'
+                      onBlur={onBlur}
+                      onChange={onChange}
+                      error={Boolean(errors.phone)}
+                    />
                   )}
-                </FormControl>
-              </Box>
+                />
+                {errors.phone && <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>}
+              </FormControl>
               <FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller
                   name='email'
@@ -300,7 +252,7 @@ const Register = () => {
                   )}
                 />
                 {errors.password && (
-                  <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>
+                  <FormHelperText sx={{ color: 'error.main' }}>{'Şifreniz en az 8 karakterden oluşmalıdır'}</FormHelperText>
                 )}
               </FormControl>
 
@@ -331,11 +283,11 @@ const Register = () => {
                               sx={{ color: errors.terms ? 'error.main' : '' }}
                             >
                             </Typography>
-                            <LinkStyled href='/' onClick={e => e.preventDefault()}>
-                            KVKK Aydınlatma Metni{' '}
+                            <LinkStyled href='https://cargopanel.co/kvkk' target='_blank'>
+                              KVKK Aydınlatma Metni{' '}
                             </LinkStyled>
                             ve{' '}
-                            <LinkStyled href='/' onClick={e => e.preventDefault()}>
+                            <LinkStyled href='https://cargopanel.co/hizmet-sozlesmesi' target='_blank'>
                             Hizmet Sözleşmesini{' '}
                             </LinkStyled>
                             okudum, kabul ediyorum.

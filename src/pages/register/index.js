@@ -19,6 +19,8 @@ import { styled, useTheme } from '@mui/material/styles'
 import FormHelperText from '@mui/material/FormHelperText'
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -33,6 +35,9 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+
+import Flag from 'react-country-flag'
+import countryCode from './countryCodes';
 
 // ** Styled Components
 const RegisterIllustration = styled('img')(({ theme }) => ({
@@ -76,8 +81,11 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
   }
 }))
 
+const defaultCountry = 'TR';
+
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
 
   const theme = useTheme()
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
@@ -87,7 +95,7 @@ const Register = () => {
     lastName: yup.string().min(3).required(),
     phone: yup.string().required(),
     email: yup.string().email().required(),
-    password: yup.string().min(8).matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*?])/).required(),
+    password: yup.string().min(8).required(),
     terms: yup.bool().oneOf([true], 'Bu alan zorunludur')
   });
 
@@ -107,7 +115,7 @@ const Register = () => {
 
   const onSubmit = data => {
     const { firstName, lastName, companyName, phone, email, password } = data;
-
+    const phoneNumber = selectedCountry ? `${countryCode.find(country => country.value === selectedCountry).label}${data.phone}` : data.phone;
   };
 
   return (
@@ -132,38 +140,20 @@ const Register = () => {
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
               <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
                 <FormControl fullWidth>
-                  <Controller
+                  <TextField
+                    label='Ad'
                     name='firstName'
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field: { value, onChange, onBlur } }) => (
-                      <TextField
-                        value={value}
-                        onBlur={onBlur}
-                        label='Ad'
-                        onChange={onChange}
-                        error={Boolean(errors.firstName)}
-                      />
-                    )}
+                    error={Boolean(errors.firstName)}
                   />
                   {errors.firstName && (
                     <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>
                   )}
                 </FormControl>
                 <FormControl fullWidth>
-                  <Controller
+                  <TextField
+                    label='Soyad'
                     name='lastName'
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field: { value, onChange, onBlur } }) => (
-                      <TextField
-                        value={value}
-                        onBlur={onBlur}
-                        label='Soyad'
-                        onChange={onChange}
-                        error={Boolean(errors.lastName)}
-                      />
-                    )}
+                    error={Boolean(errors.lastName)}
                   />
                   {errors.lastName && (
                     <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>
@@ -171,52 +161,50 @@ const Register = () => {
                 </FormControl>
               </Box>
               <FormControl fullWidth sx={{ mb: 4 }}>
-                <Controller
-                  name='companyName'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
-                    <TextField
-                      value={value}
-                      label='Şirket Adı (Opsiyonel)'
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      error={Boolean(errors.companyName)}
-                    />
-                  )}
-                />
+              <TextField
+                label='Şirket Adı (Opsiyonel)'
+                name='companyName'
+                error={Boolean(errors.companyName)}
+              />
               </FormControl>
-              <FormControl fullWidth sx={{ mb: 4 }}>
-                <Controller
-                  name='phone'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
-                    <TextField
-                      value={value}
-                      label='Telefon Numarası'
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      error={Boolean(errors.phone)}
-                    />
+              <Box sx={{ display: 'flex', gap: 2, mb: 4, alignItems: 'flex-end' }}>
+                <FormControl fullWidth sx={{ flex: '4' }}>
+                  <InputLabel htmlFor='country-code'>Ülke Kodu</InputLabel>
+                  <Select
+                    label='Ülke Kodu'
+                    id='country-code'
+                    value={selectedCountry}
+                    onChange={(e) => setSelectedCountry(e.target.value)}
+                  >
+                  {countryCode.map((country) => (
+                    <MenuItem key={`${country.value}-${country.label}`} value={country.value}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <Flag countryCode={country.value} svg style={{ marginRight: '0.5em' }} />
+                        <span>{country.label}</span>
+                      </div>
+                    </MenuItem>
+                  ))}
+                  </Select>
+                  {errors.phone && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{' '}</FormHelperText>
                   )}
-                />
-                {errors.phone && <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>}
-              </FormControl>
+                </FormControl>
+                <FormControl fullWidth sx={{ flex: '8' }}>
+                  <TextField
+                    label='Telefon Numarası'
+                    name='phone'
+                    error={Boolean(errors.phone)}
+                  />
+                  {errors.phone && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>
+                  )}
+                </FormControl>
+              </Box>
               <FormControl fullWidth sx={{ mb: 4 }}>
-                <Controller
+                <TextField
+                  label='E-Posta'
                   name='email'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
-                    <TextField
-                      value={value}
-                      label='E-Posta'
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      error={Boolean(errors.email)}
-                    />
-                  )}
+                  error={Boolean(errors.email)}
                 />
                 {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>}
               </FormControl>
@@ -224,32 +212,22 @@ const Register = () => {
                 <InputLabel htmlFor='auth-login-v2-password' error={Boolean(errors.password)}>
                   Şifre
                 </InputLabel>
-                <Controller
+                <OutlinedInput
+                  label='Şifre'
                   name='password'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
-                    <OutlinedInput
-                      value={value}
-                      label='Şifre'
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      id='auth-login-v2-password'
-                      error={Boolean(errors.password)}
-                      type={showPassword ? 'text' : 'password'}
-                      endAdornment={
-                        <InputAdornment position='end'>
-                          <IconButton
-                            edge='end'
-                            onMouseDown={e => e.preventDefault()}
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            <Icon icon={showPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                  )}
+                  error={Boolean(errors.password)}
+                  type={showPassword ? 'text' : 'password'}
+                  endAdornment={
+                    <InputAdornment position='end'>
+                      <IconButton
+                        edge='end'
+                        onMouseDown={e => e.preventDefault()}
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        <Icon icon={showPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
+                      </IconButton>
+                    </InputAdornment>
+                  }
                 />
                 {errors.password && (
                   <FormHelperText sx={{ color: 'error.main' }}>{'Şifreniz en az 8 karakterden oluşmalıdır'}</FormHelperText>
@@ -283,11 +261,11 @@ const Register = () => {
                               sx={{ color: errors.terms ? 'error.main' : '' }}
                             >
                             </Typography>
-                            <LinkStyled href='/' onClick={e => e.preventDefault()}>
-                            KVKK Aydınlatma Metni{' '}
+                            <LinkStyled href='https://cargopanel.co/kvkk' target='_blank'>
+                              KVKK Aydınlatma Metni{' '}
                             </LinkStyled>
                             ve{' '}
-                            <LinkStyled href='/' onClick={e => e.preventDefault()}>
+                            <LinkStyled href='https://cargopanel.co/hizmet-sozlesmesi' target='_blank'>
                             Hizmet Sözleşmesini{' '}
                             </LinkStyled>
                             okudum, kabul ediyorum.
