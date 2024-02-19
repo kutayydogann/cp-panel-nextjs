@@ -39,7 +39,6 @@ import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 import Flag from 'react-country-flag'
 import countryCode from './countryCodes';
 
-// ** Styled Components
 const RegisterIllustration = styled('img')(({ theme }) => ({
   zIndex: 2,
   maxHeight: 575,
@@ -95,7 +94,7 @@ const Register = () => {
     lastName: yup.string().min(3).required(),
     phone: yup.string().required(),
     email: yup.string().email().required(),
-    password: yup.string().min(8).required(),
+    password: yup.string().min(8).matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*?])/).required(),
     terms: yup.bool().oneOf([true], 'Bu alan zorunludur')
   });
 
@@ -140,20 +139,38 @@ const Register = () => {
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
               <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
                 <FormControl fullWidth>
-                  <TextField
-                    label='Ad'
+                  <Controller
                     name='firstName'
-                    error={Boolean(errors.firstName)}
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        value={value}
+                        onBlur={onBlur}
+                        label='Ad'
+                        onChange={onChange}
+                        error={Boolean(errors.firstName)}
+                      />
+                    )}
                   />
                   {errors.firstName && (
                     <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>
                   )}
                 </FormControl>
                 <FormControl fullWidth>
-                  <TextField
-                    label='Soyad'
+                  <Controller
                     name='lastName'
-                    error={Boolean(errors.lastName)}
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        value={value}
+                        onBlur={onBlur}
+                        label='Soyad'
+                        onChange={onChange}
+                        error={Boolean(errors.lastName)}
+                      />
+                    )}
                   />
                   {errors.lastName && (
                     <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>
@@ -161,11 +178,20 @@ const Register = () => {
                 </FormControl>
               </Box>
               <FormControl fullWidth sx={{ mb: 4 }}>
-              <TextField
-                label='Şirket Adı (Opsiyonel)'
-                name='companyName'
-                error={Boolean(errors.companyName)}
-              />
+                <Controller
+                  name='companyName'
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <TextField
+                      value={value}
+                      label='Şirket Adı (Opsiyonel)'
+                      onBlur={onBlur}
+                      onChange={onChange}
+                      error={Boolean(errors.companyName)}
+                    />
+                  )}
+                />
               </FormControl>
               <Box sx={{ display: 'flex', gap: 2, mb: 4, alignItems: 'flex-end' }}>
                 <FormControl fullWidth sx={{ flex: '4' }}>
@@ -190,21 +216,37 @@ const Register = () => {
                   )}
                 </FormControl>
                 <FormControl fullWidth sx={{ flex: '8' }}>
-                  <TextField
-                    label='Telefon Numarası'
+                  <Controller
                     name='phone'
-                    error={Boolean(errors.phone)}
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        value={value}
+                        label='Telefon Numarası'
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        error={Boolean(errors.phone)}
+                      />
+                    )}
                   />
-                  {errors.phone && (
-                    <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>
-                  )}
+                  {errors.phone && <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>}
                 </FormControl>
               </Box>
               <FormControl fullWidth sx={{ mb: 4 }}>
-                <TextField
-                  label='E-Posta'
+                <Controller
                   name='email'
-                  error={Boolean(errors.email)}
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <TextField
+                      value={value}
+                      label='E-Posta'
+                      onBlur={onBlur}
+                      onChange={onChange}
+                      error={Boolean(errors.email)}
+                    />
+                  )}
                 />
                 {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{'Bu alan zorunludur'}</FormHelperText>}
               </FormControl>
@@ -212,22 +254,32 @@ const Register = () => {
                 <InputLabel htmlFor='auth-login-v2-password' error={Boolean(errors.password)}>
                   Şifre
                 </InputLabel>
-                <OutlinedInput
-                  label='Şifre'
+                <Controller
                   name='password'
-                  error={Boolean(errors.password)}
-                  type={showPassword ? 'text' : 'password'}
-                  endAdornment={
-                    <InputAdornment position='end'>
-                      <IconButton
-                        edge='end'
-                        onMouseDown={e => e.preventDefault()}
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        <Icon icon={showPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
-                      </IconButton>
-                    </InputAdornment>
-                  }
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <OutlinedInput
+                      value={value}
+                      label='Şifre'
+                      onBlur={onBlur}
+                      onChange={onChange}
+                      id='auth-login-v2-password'
+                      error={Boolean(errors.password)}
+                      type={showPassword ? 'text' : 'password'}
+                      endAdornment={
+                        <InputAdornment position='end'>
+                          <IconButton
+                            edge='end'
+                            onMouseDown={e => e.preventDefault()}
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            <Icon icon={showPassword ? 'tabler:eye' : 'tabler:eye-off'} fontSize={20} />
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                  )}
                 />
                 {errors.password && (
                   <FormHelperText sx={{ color: 'error.main' }}>{'Şifreniz en az 8 karakterden oluşmalıdır'}</FormHelperText>
