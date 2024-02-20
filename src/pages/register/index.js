@@ -94,12 +94,12 @@ const Register = () => {
     lastName: yup.string().min(3).required(),
     phone: yup.string().required(),
     email: yup.string().email().required(),
-    password: yup.string().min(8).matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*?])/).required(),
+    password: yup.string().min(8).required(),
     terms: yup.bool().oneOf([true], 'Bu alan zorunludur')
   });
 
   const { control, handleSubmit, formState: { errors } } = useForm({
-    mode: 'onBlur',
+    mode: 'onSubmit',
     resolver: yupResolver(schema),
     defaultValues: {
       firstName: '',
@@ -143,10 +143,9 @@ const Register = () => {
                     name='firstName'
                     control={control}
                     rules={{ required: true }}
-                    render={({ field: { value, onChange, onBlur } }) => (
+                    render={({ field: { value, onChange } }) => (
                       <TextField
                         value={value}
-                        onBlur={onBlur}
                         label='Ad'
                         onChange={onChange}
                         error={Boolean(errors.firstName)}
@@ -162,10 +161,9 @@ const Register = () => {
                     name='lastName'
                     control={control}
                     rules={{ required: true }}
-                    render={({ field: { value, onChange, onBlur } }) => (
+                    render={({ field: { value, onChange } }) => (
                       <TextField
                         value={value}
-                        onBlur={onBlur}
                         label='Soyad'
                         onChange={onChange}
                         error={Boolean(errors.lastName)}
@@ -182,11 +180,10 @@ const Register = () => {
                   name='companyName'
                   control={control}
                   rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
+                  render={({ field: { value, onChange } }) => (
                     <TextField
                       value={value}
                       label='Şirket Adı (Opsiyonel)'
-                      onBlur={onBlur}
                       onChange={onChange}
                       error={Boolean(errors.companyName)}
                     />
@@ -220,11 +217,10 @@ const Register = () => {
                     name='phone'
                     control={control}
                     rules={{ required: true }}
-                    render={({ field: { value, onChange, onBlur } }) => (
+                    render={({ field: { value, onChange } }) => (
                       <TextField
                         value={value}
                         label='Telefon Numarası'
-                        onBlur={onBlur}
                         onChange={onChange}
                         error={Boolean(errors.phone)}
                       />
@@ -238,11 +234,10 @@ const Register = () => {
                   name='email'
                   control={control}
                   rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
+                  render={({ field: { value, onChange } }) => (
                     <TextField
                       value={value}
                       label='E-Posta'
-                      onBlur={onBlur}
                       onChange={onChange}
                       error={Boolean(errors.email)}
                     />
@@ -258,11 +253,10 @@ const Register = () => {
                   name='password'
                   control={control}
                   rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
+                  render={({ field: { value, onChange } }) => (
                     <OutlinedInput
                       value={value}
                       label='Şifre'
-                      onBlur={onBlur}
                       onChange={onChange}
                       id='auth-login-v2-password'
                       error={Boolean(errors.password)}

@@ -88,7 +88,7 @@ const LoginPage = () => {
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
   const { control, handleSubmit, formState: { errors } } = useForm({
-    mode: 'onBlur',
+    mode: 'onSubmit',
     resolver: yupResolver(schema),
     defaultValues: {
       email: '',
@@ -125,7 +125,7 @@ const LoginPage = () => {
                   name='email'
                   control={control}
                   rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
+                  render={({ field: { value, onChange } }) => (
                     <TextField
                       autoFocus
                       label='E-Posta'
@@ -145,7 +145,7 @@ const LoginPage = () => {
                   name='password'
                   control={control}
                   rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
+                  render={({ field: { value, onChange } }) => (
                     <OutlinedInput
                       value={value}
                       label='Şifre'
